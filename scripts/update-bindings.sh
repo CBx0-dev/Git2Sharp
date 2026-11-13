@@ -363,18 +363,21 @@ for version in "${missing_versions[@]}"; do
         echo "Existing PR verified for $branch."
 
     else
-        body="Bindings regenerated for [libgit2 v${version}](https://github.com/libgit2/libgit2/releases/tag/v${version}).
+        body=$(
+            cat <<EOF
+Bindings regenerated for [libgit2 v${version}](https://github.com/libgit2/libgit2/releases/tag/v${version}).
 
-    **Predecessor:** v${predecessor}
+**Predecessor:** v${predecessor}
 
-    This PR is part of the automated libgit2 release update process.
+This PR is part of the automated libgit2 release update process.
 
-    **Merge requirements:**
-    - Merge in ascending SemVer order.
-    - Use Create a merge commit.
-    - Do not squash or rebase.
+**Merge requirements:**
+- Merge in ascending SemVer order (e.g. v1.1.1 before v2.2.2, never the other way around).
+- Do not squash-merge or rebase-merge.
 
-    Merging publishes NuGet package ${version}, tags the merge commit v${version}, and creates a GitHub release."
+Merging publishes NuGet package ${version}, tags the merge commit v${version}, and creates a GitHub release.
+EOF
+        )
 
         gh pr create \
             --repo "$REPOSITORY" \
