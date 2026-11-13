@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Git2Sharp.Bindings.PostProcess/Git2Sharp.Bindings.PostProcess.csproj" />
+    <Project Path="src/Git2Sharp.Bindings/Git2Sharp.Bindings.csproj" />
+    <Project Path="src/Git2Sharp.Sample/Git2Sharp.Sample.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,93 @@
+name: Publish
+
+# Publishes the bindings package when a release PR is merged into master.
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - LIBGIT2_VERSION
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Read libgit2 version
+        id: version
+        run: |
+          set -euo pipefail
+
+          version="$(tr -d '[:space:]' < LIBGIT2_VERSION)"
+
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Unexpected version '$version' in LIBGIT2_VERSION"
+            exit 1
+          fi
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Pack
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          dotnet pack src/LibGit2.Bindings -c Release \
+            -p:Version="$VERSION" \
+            -p:RepositoryUrl="https://github.com/${GITHUB_REPOSITORY}" \
+            -o artifacts
+
+      # Exchange GitHub OIDC identity for a temporary NuGet API key.
+      - name: NuGet login
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push to NuGet
+        env:
+          NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
+        run: |
+          set -euo pipefail
+
+          dotnet nuget push "artifacts/*.nupkg" \
+            --api-key "$NUGET_API_KEY" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
+
+      # Last, so a failed package push leaves no release tag behind.
+      - name: Tag commit and create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            echo "Release v${VERSION} already exists."
+            exit 0
+          fi
+
+          gh release create "v${VERSION}" \
+            --target "$GITHUB_SHA" \
+            --title "v${VERSION}" \
+            --notes "C# bindings for [libgit2 v${VERSION}](https://github.com/libgit2/libgit2/releases/tag/v${VERSION}). NuGet package: \`LibGit2.Bindings\` ${VERSION}."

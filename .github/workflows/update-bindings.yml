@@ -1,0 +1,53 @@
+name: Update bindings
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Generate through this libgit2 version (default: latest)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-bindings
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      INPUT_VERSION: ${{ inputs.version }}
+      BASELINE_VERSION: "1.9.0"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Install clang
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends clang
+
+      - name: Update bindings
+        run: |
+          chmod +x scripts/update-bindings.sh
+          scripts/update-bindings.sh
