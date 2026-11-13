@@ -8,7 +8,7 @@
 // Generated using ClangSharp from the upstream C headers:
 //
 // Upstream:                https://github.com/libgit2/libgit2
-// Version:                 v1.9.2
+// Version:                 v1.9.3
 // SPDX-License-Identifier: GPL-2.0-with-libgit2-exception
 // </auto-generated>
 
