@@ -8,7 +8,7 @@
 // Generated using ClangSharp from the upstream C headers:
 //
 // Upstream:                https://github.com/libgit2/libgit2
-// Version:                 v1.9.1
+// Version:                 v1.9.2
 // SPDX-License-Identifier: GPL-2.0-with-libgit2-exception
 // </auto-generated>
 
@@ -3551,7 +3551,7 @@ public static unsafe partial class Native
     public const int LIBGIT2_VER_MINOR = 9;
 
     [NativeTypeName("#define LIBGIT2_VER_REVISION LIBGIT2_VERSION_REVISION")]
-    public const int LIBGIT2_VER_REVISION = 1;
+    public const int LIBGIT2_VER_REVISION = 2;
 
     [NativeTypeName("#define LIBGIT2_VER_PATCH LIBGIT2_VERSION_PATCH")]
     public const int LIBGIT2_VER_PATCH = 0;
@@ -3568,8 +3568,8 @@ public static unsafe partial class Native
     [NativeTypeName("#define GIT_ODB_BACKEND_LOOSE_OPTIONS_VERSION 1")]
     public const int GIT_ODB_BACKEND_LOOSE_OPTIONS_VERSION = 1;
 
-    [NativeTypeName("#define LIBGIT2_VERSION \"1.9.1\"")]
-    public static ReadOnlySpan<byte> LIBGIT2_VERSION => "1.9.1"u8;
+    [NativeTypeName("#define LIBGIT2_VERSION \"1.9.2\"")]
+    public static ReadOnlySpan<byte> LIBGIT2_VERSION => "1.9.2"u8;
 
     [NativeTypeName("#define LIBGIT2_VERSION_MAJOR 1")]
     public const int LIBGIT2_VERSION_MAJOR = 1;
@@ -3577,8 +3577,8 @@ public static unsafe partial class Native
     [NativeTypeName("#define LIBGIT2_VERSION_MINOR 9")]
     public const int LIBGIT2_VERSION_MINOR = 9;
 
-    [NativeTypeName("#define LIBGIT2_VERSION_REVISION 1")]
-    public const int LIBGIT2_VERSION_REVISION = 1;
+    [NativeTypeName("#define LIBGIT2_VERSION_REVISION 2")]
+    public const int LIBGIT2_VERSION_REVISION = 2;
 
     [NativeTypeName("#define LIBGIT2_VERSION_PATCH 0")]
     public const int LIBGIT2_VERSION_PATCH = 0;
@@ -3590,7 +3590,7 @@ public static unsafe partial class Native
     public static ReadOnlySpan<byte> LIBGIT2_SOVERSION => "1.9"u8;
 
     [NativeTypeName("#define LIBGIT2_VERSION_NUMBER (    \\\n    (LIBGIT2_VERSION_MAJOR * 1000000) + \\\n    (LIBGIT2_VERSION_MINOR * 10000) +   \\\n    (LIBGIT2_VERSION_REVISION * 100))")]
-    public const int LIBGIT2_VERSION_NUMBER = ((1 * 1000000) + (9 * 10000) + (1 * 100));
+    public const int LIBGIT2_VERSION_NUMBER = ((1 * 1000000) + (9 * 10000) + (2 * 100));
 
     [NativeTypeName("#define GIT_COMMIT_GRAPH_OPEN_OPTIONS_VERSION 1")]
     public const int GIT_COMMIT_GRAPH_OPEN_OPTIONS_VERSION = 1;
