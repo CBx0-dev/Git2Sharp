@@ -317,7 +317,7 @@ for version in "${missing_versions[@]}"; do
         # Generate and validate bindings.
         ./scripts/generate.sh "$version"
 
-        dotnet build src/LibGit2.Bindings -c Release
+        dotnet build src/Git2Sharp.Bindings -c Release
 
         git add -A
 
