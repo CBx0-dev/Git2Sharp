@@ -8,7 +8,7 @@
 // Generated using ClangSharp from the upstream C headers:
 //
 // Upstream:                https://github.com/libgit2/libgit2
-// Version:                 v1.9.4
+// Version:                 v1.9.5
 // SPDX-License-Identifier: GPL-2.0-with-libgit2-exception
 // </auto-generated>
 
@@ -63,4 +63,6 @@ public enum GitLibgit2OptT : uint
     GIT_OPT_SET_USER_AGENT_PRODUCT,
     GIT_OPT_GET_USER_AGENT_PRODUCT,
     GIT_OPT_ADD_SSL_X509_CERT,
+    GIT_OPT_GET_PACK_MAX_OBJECT_SIZE,
+    GIT_OPT_SET_PACK_MAX_OBJECT_SIZE,
 }
