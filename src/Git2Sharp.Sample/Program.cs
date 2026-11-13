@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using LibGit2.Bindings;
+using Git2Sharp.Bindings;
 
 namespace Git2Sharp.Sample;
 

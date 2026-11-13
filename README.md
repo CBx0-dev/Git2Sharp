@@ -33,7 +33,7 @@ For example, opening a repository and reading it's current branch name:
 
 ```csharp
 using System.Runtime.InteropServices;
-using LibGit2.Bindings;
+using Git2Sharp.Bindings;
 
 namespace Git2Sharp.Sample;
 

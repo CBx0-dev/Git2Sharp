@@ -3,7 +3,7 @@ c
 --std
 c11
 --namespace
-LibGit2.Bindings
+Git2Sharp.Bindings
 --method-class-name
 Native
 --library-path
