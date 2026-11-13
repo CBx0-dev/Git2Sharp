@@ -107,4 +107,4 @@ naming conventions and generated code adjustments.
 
 This project is licensed under the Apache License 2.0.
 
-libgit2 is separately licensed under the terms specified by its own repository.
+libgit2 is separately licensed under the terms specified by its own [repository](https://github.com/libgit2/libgit2?tab=License-1-ov-file).
