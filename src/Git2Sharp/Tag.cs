@@ -1,13 +1,12 @@
 using System;
-using Git2Sharp.Common;
 
 namespace Git2Sharp;
 
 public sealed class Tag : IDisposable
 {
-    public InteropString Name { get; }
+    public string Name { get; }
 
-    internal Tag(InteropString name)
+    internal Tag(string name)
     {
         Name = name;
     }

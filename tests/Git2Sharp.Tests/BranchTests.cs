@@ -53,8 +53,8 @@ public sealed class BranchTests
         Branch? branch = collection.FirstOrDefault(b => b.Name == "master");
         Assert.NotNull(branch);
 
-        InteropString name = branch.Name;
-        InteropString cachedName = branch.Name;
+        string name = branch.Name;
+        string cachedName = branch.Name;
 
         Assert.True(ReferenceEquals(name, cachedName));
     }

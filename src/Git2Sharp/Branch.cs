@@ -29,7 +29,7 @@ public sealed unsafe class Branch : IDisposable
     /// The name is retried from the underlying native reference
     /// on first access and cached for subsequent accesses.
     /// </remarks>
-    public InteropString Name
+    public string Name
     {
         get
         {
@@ -40,7 +40,7 @@ public sealed unsafe class Branch : IDisposable
 
             using NativeHandleLease<GitReference> reference = _handle.Acquire();
 
-            field = Native.GitReferenceShorthand(reference.Object);
+            field = (InteropString)Native.GitReferenceShorthand(reference.Object);
             return field;
         }
     }

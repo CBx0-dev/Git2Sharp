@@ -62,7 +62,9 @@ public sealed unsafe class Repository : IDisposable
     /// <exception cref="GitException">
     /// The repository could not be opened.
     /// </exception>
-    public static Repository Open(InteropString path)
+    public static Repository Open(string path) => Open((InteropString)path);
+
+    private static Repository Open(InteropString path)
     {
         GitRuntime.Initialize();
 
