@@ -19,7 +19,15 @@ public sealed unsafe class Repository : IDisposable
 
     internal NativeHandle<GitRepository> Handle => _handle;
 
+    /// <summary>
+    /// Perform operations related to branches in this repository.
+    /// </summary>
     public BranchHandler Branches { get; }
+
+    /// <summary>
+    /// Perform operations related to tags in this repository.
+    /// </summary>
+    public TagHandler Tags { get; }
 
     private Repository(GitRepository* repository)
     {
@@ -31,6 +39,7 @@ public sealed unsafe class Repository : IDisposable
         );
 
         Branches = new BranchHandler(this);
+        Tags = new TagHandler(this);
     }
 
     /// <summary>

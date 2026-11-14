@@ -16,26 +16,26 @@ public sealed unsafe class BranchHandler
     /// Gets all local and remote branches in the repository.
     /// </summary>
     /// <returns>A collection containing all branches in the repository.</returns>
-    public BranchCollection All => CollectBranches(GitBranchT.GIT_BRANCH_ALL);
+    public NativeCollection<Branch> All => CollectBranches(GitBranchT.GIT_BRANCH_ALL);
 
     /// <summary>
     /// Gets all local branches in the repository.
     /// </summary>
     /// <returns>A collection containing all local branches in the repository</returns>
-    public BranchCollection Local => CollectBranches(GitBranchT.GIT_BRANCH_LOCAL);
+    public NativeCollection<Branch> Local => CollectBranches(GitBranchT.GIT_BRANCH_LOCAL);
 
     /// <summary>
     /// Gets all remote branches in the repository.
     /// </summary>
     /// <returns>A collection containing all remote branches in the repository</returns>
-    public BranchCollection Remote => CollectBranches(GitBranchT.GIT_BRANCH_REMOTE);
+    public NativeCollection<Branch> Remote => CollectBranches(GitBranchT.GIT_BRANCH_REMOTE);
 
     internal BranchHandler(Repository repository)
     {
         _repository = repository;
     }
 
-    private BranchCollection CollectBranches(GitBranchT expectedType)
+    private NativeCollection<Branch> CollectBranches(GitBranchT expectedType)
     {
         using NativeHandleLease<GitRepository> repository = _repository.Handle.Acquire();
 
@@ -60,6 +60,6 @@ public sealed unsafe class BranchHandler
             throw;
         }
 
-        return new BranchCollection(branches.ToImmutableList());
+        return new NativeCollection<Branch>(branches);
     }
 }
