@@ -13,6 +13,11 @@ public sealed unsafe class Branch : IDisposable
     private readonly GitBranchT _type;
 
     /// <summary>
+    /// The repository this branch belongs to.
+    /// </summary>
+    public Repository Repository { get; }
+
+    /// <summary>
     /// Gets a value indicating whether the branch is local.
     /// </summary>
     public bool IsLocal => ((uint)_type & (uint)GitBranchT.GIT_BRANCH_LOCAL) != 0;
@@ -45,13 +50,15 @@ public sealed unsafe class Branch : IDisposable
         }
     }
 
-    internal Branch(GitReference* reference, GitBranchT type)
+    internal Branch(Repository repository, GitReference* reference, GitBranchT type)
     {
         _handle = new NativeHandle<GitReference>(
             reference,
             static ptr => Native.GitReferenceFree((GitReference*)ptr)
         );
         _type = type;
+
+        Repository = repository;
     }
 
 
