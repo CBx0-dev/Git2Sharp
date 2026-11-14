@@ -1,6 +1,7 @@
 using System;
 using Git2Sharp.Bindings;
 using Git2Sharp.Common;
+using Git2Sharp.Handlers;
 
 namespace Git2Sharp;
 
@@ -18,11 +19,18 @@ public sealed unsafe class Repository : IDisposable
 
     internal NativeHandle<GitRepository> Handle => _handle;
 
+    public BranchHandler Branches { get; }
+
     private Repository(GitRepository* repository)
     {
         ArgumentNullException.ThrowIfNull(repository);
 
-        _handle = new NativeHandle<GitRepository>(repository, static ptr => Native.GitRepositoryFree((GitRepository*)ptr));
+        _handle = new NativeHandle<GitRepository>(
+            repository,
+            static ptr => Native.GitRepositoryFree((GitRepository*)ptr)
+        );
+
+        Branches = new BranchHandler(this);
     }
 
     /// <summary>

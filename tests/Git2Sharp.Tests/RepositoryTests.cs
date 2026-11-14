@@ -14,6 +14,6 @@ public sealed class RepositoryTests
     public void Open_ShouldThrowForNonExistingRepository()
     {
         GitException exception = Assert.Throws<GitException>(() => Repository.Open("non-existing-repository"));
-        Assert.Equal(exception.Code, GitErrorCode.GIT_ENOTFOUND);
+        Assert.Equal(GitErrorCode.GIT_ENOTFOUND, exception.Code);
     }
 }
