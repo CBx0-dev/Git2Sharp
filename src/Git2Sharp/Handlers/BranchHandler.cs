@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using Git2Sharp.Bindings;
 using Git2Sharp.Common;
 
