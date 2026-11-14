@@ -69,7 +69,7 @@ public sealed class GitException : Exception
     /// </exception>
     public static void ThrowIfError(GitErrorCode code)
     {
-        if (code != 0)
+        if (code < 0)
         {
             throw new GitException(code);
         }
@@ -79,7 +79,7 @@ public sealed class GitException : Exception
     {
         if (code >= 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(code), "Code must be less than zero");
+            throw new ArgumentOutOfRangeException(nameof(code), $"Code must be less than zero, got '{code}'");
         }
 
         klass = null;
@@ -88,7 +88,7 @@ public sealed class GitException : Exception
             GitError* error = Native.GitErrorLast();
             if (error is null)
             {
-                return "Unknown git error, git_error_last didnt return an error";
+                return "Unknown git error, 'git_error_last' didnt return an error";
             }
 
             InteropString str = error->Message;
