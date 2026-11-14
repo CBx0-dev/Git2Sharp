@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+        <PackageId>Git2Sharp</PackageId>
+        <Version>0.0.0</Version>
+        <Authors>CBx0</Authors>
+        <Description>C# P/Invoke bindings for libgit2.</Description>
+        <PackageTags>libgit2;git;bindings;interop;pinvoke</PackageTags>
+
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/CBx0-dev/Git2Sharp</RepositoryUrl>
+
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Git2Sharp.Bindings" Version="1.9.7"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../../README.md"
+              Pack="true"
+              PackagePath="/"/>
+        <None Include="../../LICENSE"
+              Pack="true"
+              PackagePath="/"/>
+    </ItemGroup>
+
+</Project>
