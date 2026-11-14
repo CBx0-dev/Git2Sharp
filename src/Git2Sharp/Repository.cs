@@ -19,6 +19,8 @@ public sealed unsafe class Repository : IDisposable
 
     internal NativeHandle<GitRepository> Handle => _handle;
 
+    public string Path { get; }
+
     /// <summary>
     /// Perform operations related to branches in this repository.
     /// </summary>
@@ -29,7 +31,7 @@ public sealed unsafe class Repository : IDisposable
     /// </summary>
     public TagHandler Tags { get; }
 
-    private Repository(GitRepository* repository)
+    private Repository(string path, GitRepository* repository)
     {
         ArgumentNullException.ThrowIfNull(repository);
 
@@ -38,6 +40,7 @@ public sealed unsafe class Repository : IDisposable
             static ptr => Native.GitRepositoryFree((GitRepository*)ptr)
         );
 
+        Path = path;
         Branches = new BranchHandler(this);
         Tags = new TagHandler(this);
     }
@@ -73,6 +76,6 @@ public sealed unsafe class Repository : IDisposable
         int code = Native.GitRepositoryOpen(&repository, path);
         GitException.ThrowIfError(code);
 
-        return new Repository(repository);
+        return new Repository(path, repository);
     }
 }
