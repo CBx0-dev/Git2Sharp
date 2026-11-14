@@ -16,14 +16,6 @@ internal sealed unsafe class NativeHandle<T> : IDisposable where T : unmanaged
     private int _activeOperations;
     private bool _disposeRequested;
 
-    /// <summary>
-    /// Gets a value indicating whether the native handle has been disposed.
-    /// </summary>
-    /// <remarks>
-    /// A handle is considered disposed once its native pointer has been released.
-    /// </remarks>
-    public bool IsDisposed => Volatile.Read(ref _ptr) == IntPtr.Zero;
-
     internal NativeHandle(T* ptr, Action<IntPtr> release)
     {
         ArgumentNullException.ThrowIfNull(ptr);
