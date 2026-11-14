@@ -8,7 +8,7 @@ public sealed unsafe class TagHandler
 {
     private readonly Repository _repository;
 
-    public TagHandler(Repository repository)
+    internal TagHandler(Repository repository)
     {
         _repository = repository;
     }
@@ -31,6 +31,7 @@ public sealed unsafe class TagHandler
             tags.Add(new Tag(name));
         }
 
+        Native.GitStrarrayFree(&arr);
         return new NativeCollection<Tag>(tags);
     }
 }

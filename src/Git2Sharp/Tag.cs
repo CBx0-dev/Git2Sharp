@@ -7,7 +7,7 @@ public sealed class Tag : IDisposable
 {
     public InteropString Name { get; }
 
-    public Tag(InteropString name)
+    internal Tag(InteropString name)
     {
         Name = name;
     }
