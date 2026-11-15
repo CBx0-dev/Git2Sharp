@@ -19,6 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="Fixtures\**\*" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\..\src\Git2Sharp\Git2Sharp.csproj" />
     </ItemGroup>
 
