@@ -7,7 +7,9 @@ public sealed class RepositoryTests
     [Fact]
     public void Open_ShouldWorkForExistingRepository()
     {
-        using Repository repository = Repository.Open(TestHelper.Repository);
+        using DisposableRepository git = TestHelper.CreateInitializedRepository();
+
+        using Repository repository = Repository.Open(git.Path);
     }
 
     [Fact]

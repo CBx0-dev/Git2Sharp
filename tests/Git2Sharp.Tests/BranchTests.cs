@@ -7,7 +7,9 @@ public sealed class BranchTests
     [Fact]
     public void All_ShouldReturnBranches()
     {
-        using Repository repository = Repository.Open(TestHelper.Repository);
+        using DisposableRepository git = TestHelper.CreateInitializedRepository();
+
+        using Repository repository = Repository.Open(git.Path);
         using NativeCollection<Branch> collection = repository.Branches.All;
 
         Assert.NotEmpty(collection);
@@ -16,7 +18,9 @@ public sealed class BranchTests
     [Fact]
     public void Local_ShouldReturnBranches()
     {
-        using Repository repository = Repository.Open(TestHelper.Repository);
+        using DisposableRepository git = TestHelper.CreateInitializedRepository();
+
+        using Repository repository = Repository.Open(git.Path);
         using NativeCollection<Branch> collection = repository.Branches.Local;
 
         Assert.NotEmpty(collection);
@@ -26,7 +30,9 @@ public sealed class BranchTests
     [Fact]
     public void Remote_ShouldReturnBranches()
     {
-        using Repository repository = Repository.Open(TestHelper.Repository);
+        using DisposableRepository git = TestHelper.CreateInitializedRepository();
+
+        using Repository repository = Repository.Open(git.Path);
         using NativeCollection<Branch> collection = repository.Branches.Remote;
 
         Assert.NotEmpty(collection);
@@ -36,7 +42,9 @@ public sealed class BranchTests
     [Fact]
     public void Branch_ShouldResolvesHisName()
     {
-        using Repository repository = Repository.Open(TestHelper.Repository);
+        using DisposableRepository git = TestHelper.CreateInitializedRepository();
+
+        using Repository repository = Repository.Open(git.Path);
         using NativeCollection<Branch> collection = repository.Branches.All;
 
         Assert.NotEmpty(collection);
@@ -46,7 +54,9 @@ public sealed class BranchTests
     [Fact]
     public void Branch_ShouldCacheName()
     {
-        using Repository repository = Repository.Open(TestHelper.Repository);
+        using DisposableRepository git = TestHelper.CreateInitializedRepository();
+
+        using Repository repository = Repository.Open(git.Path);
         using NativeCollection<Branch> collection = repository.Branches.All;
 
         Assert.NotEmpty(collection);

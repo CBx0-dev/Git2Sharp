@@ -7,7 +7,9 @@ public sealed class TagTests
     [Fact]
     public void All_ShouldReturnTags()
     {
-        using Repository repository = Repository.Open(TestHelper.Repository);
+        using DisposableRepository git = TestHelper.CreateInitializedRepository();
+
+        using Repository repository = Repository.Open(git.Path);
         using NativeCollection<Tag> collection = repository.Tags.All;
 
         Assert.NotEmpty(collection);
