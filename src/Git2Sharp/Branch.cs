@@ -50,6 +50,31 @@ public sealed unsafe class Branch : IDisposable
         }
     }
 
+    /// <summary>
+    /// Resolves the HEAD Commit of the Branch.
+    /// </summary>
+    /// <exception cref="GitException">
+    /// If the Branch dont contains any commits.
+    /// </exception>
+    public Commit Head
+    {
+        get
+        {
+            GitCommit* obj;
+            
+            using NativeHandleLease<GitReference> reference = _handle.Acquire();
+
+            int error = Native.GitReferencePeel(
+                (GitObject**)&obj,
+                reference.Object,
+                GitObjectT.GIT_OBJECT_COMMIT    
+            );
+            GitException.ThrowIfError(error);
+
+            return new Commit(Repository, obj);
+        }
+    }
+
     internal Branch(Repository repository, GitReference* reference, GitBranchT type)
     {
         _handle = new NativeHandle<GitReference>(

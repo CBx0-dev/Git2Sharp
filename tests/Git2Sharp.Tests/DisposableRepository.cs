@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Git2Sharp.Tests;
 
 public sealed class DisposableRepository : IDisposable
@@ -25,10 +27,29 @@ public sealed class DisposableRepository : IDisposable
         return new DisposableRepository(path);
     }
 
-    public Repository Open()
+    public void ExecuteGit(string arguments)
     {
         ObjectDisposedException.ThrowIf(_disposed != 0, this);
-        return Repository.Open(Path);
+
+        using Process process = new Process();
+        process.StartInfo = new ProcessStartInfo
+        {
+            FileName = "git",
+            Arguments = arguments,
+            WorkingDirectory = Path,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+        };
+
+        process.Start();
+        process.WaitForExit();
+        if (process.ExitCode != 0)
+        {
+            string error = process.StandardError.ReadToEnd();
+            throw new InvalidOperationException($"Git command failed with exit code {process.ExitCode}: {error}");
+        }
     }
 
     public void Dispose()
@@ -41,7 +62,7 @@ public sealed class DisposableRepository : IDisposable
         DeleteDirectory(Path);
     }
 
-    internal static void DeleteDirectory(string targetDir)
+    private static void DeleteDirectory(string targetDir)
     {
         if (!Directory.Exists(targetDir))
         {

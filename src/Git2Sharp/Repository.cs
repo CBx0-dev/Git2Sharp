@@ -30,6 +30,11 @@ public sealed unsafe class Repository : IDisposable
     /// Perform operations related to tags in this repository.
     /// </summary>
     public TagHandler Tags { get; }
+    
+    /// <summary>
+    /// Perform operations related to commits in this repository.
+    /// </summary>
+    public CommitHandler Commits { get; }
 
     private Repository(string path, GitRepository* repository)
     {
@@ -43,8 +48,9 @@ public sealed unsafe class Repository : IDisposable
         Path = path;
         Branches = new BranchHandler(this);
         Tags = new TagHandler(this);
+        Commits = new CommitHandler(this);
     }
-
+    
     /// <summary>
     /// Releases the native resources associated with this repository.
     /// </summary>
